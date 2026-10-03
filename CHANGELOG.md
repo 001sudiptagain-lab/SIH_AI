@@ -1,4 +1,4 @@
-# SUNO AI v0.6.7 — Session Changelog & Dev Notes
+# SAATHI AI v0.6.7 — Session Changelog & Dev Notes
 
 > **Date:** 2026-10-03  
 > **Session:** Full UI Retheme + Real-Time Telemetry Data Fixes  
@@ -260,4 +260,4 @@ npm start
 
 ---
 
-*SUNO AI v0.6.7 | Session Notes generated 2026-10-03*
+*SAATHI AI v0.6.7 | Session Notes generated 2026-10-03*

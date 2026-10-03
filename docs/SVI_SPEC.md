@@ -2,7 +2,7 @@
 
 **Version:** 2.0.0  
 **Specification Document:** `docs/SVI_SPEC.md`  
-**Purpose:** Formal calibration formula, saturation dynamics, thresholds, hysteresis, and deterministic safety override rules for the Stress Vulnerability Index in SUNO AI.
+**Purpose:** Formal calibration formula, saturation dynamics, thresholds, hysteresis, and deterministic safety override rules for the Stress Vulnerability Index in SAATHI AI.
 
 ---
 

@@ -1,5 +1,5 @@
 /**
- * Dedicated Prosody Controller for SUNO AI
+ * Dedicated Prosody Controller for SAATHI AI
  * 
  * Maps detected user emotion, conversational intent, and sentence structures
  * into targeted prosody parameters (pitch, rate, energy, pauses, word emphasis)

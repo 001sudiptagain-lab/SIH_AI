@@ -1,5 +1,5 @@
 /**
- * Unicode-Aware Multilingual Patterns & Lexicons for SUNO AI SVI 2.0
+ * Unicode-Aware Multilingual Patterns & Lexicons for SAATHI AI SVI 2.0
  * Supports: Hindi (Devanagari), Hinglish (Romanized Hindi), Bengali (বাংলা), English.
  * 
  * Uses Unicode-aware boundary lookarounds:

@@ -1,4 +1,4 @@
-# SUNO AI — Telemetry, Emotion & SVI 2.0 Evaluation Report
+# SAATHI AI — Telemetry, Emotion & SVI 2.0 Evaluation Report
 
 **Evaluation Date:** October 2026  
 **Subject:** Server-Authoritative Multimodal Telemetry & Stress Vulnerability Index (SVI 2.0)  

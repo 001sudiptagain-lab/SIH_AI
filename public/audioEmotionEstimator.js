@@ -1,6 +1,6 @@
 // ============================================================================
 // AudioEmotionEstimator — Adaptive baseline acoustic feature extraction
-// Ported & Calibrated for SUNO AI
+// Ported & Calibrated for SAATHI AI
 // 
 // CORRECTIONS APPLIED:
 // 1. Adaptive Noise Floor: Calibrates ambient floor during the first 1.5 seconds.

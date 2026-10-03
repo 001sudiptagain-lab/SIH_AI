@@ -639,11 +639,11 @@
               if (!this._hasSpokenIntro && currentHistory.length === 0) {
                 this._hasSpokenIntro = true;
                 
-                let introGreeting = "नमस्ते! मैं SUNO AI हूँ। मुझे सुदीप्ता ने आपके भावनात्मक सहयोग और बातचीत के लिए ट्रेन किया है। बताइए, आज मैं आपकी क्या मदद कर सकती हूँ?";
+                let introGreeting = "नमस्ते! मैं SAATHI AI हूँ। मुझे Team Saathi ने आपके भावनात्मक सहयोग और बातचीत के लिए ट्रेन किया है। बताइए, आज मैं आपकी क्या मदद कर सकती हूँ?";
                 if (this.selectedLang === 'en-US') {
-                  introGreeting = "Hello! I am SUNO AI, your compassionate companion. I was trained and created by Sudipta. How can I support you today?";
+                  introGreeting = "Hello! I am SAATHI AI, your compassionate companion. I was trained and created by Team Saathi. How can I support you today?";
                 } else if (this.selectedLang === 'bn-IN') {
-                  introGreeting = "নমস্কার! আমি SUNO AI। আমাকে সুদীপ্তা তৈরি করেছেন আপনার মানসিক সমর্থন ও বন্ধুত্বের জন্য। বলুন, আজ আপনাকে কীভাবে সাহায্য করতে পারি?";
+                  introGreeting = "নমস্কার! আমি SAATHI AI। আমাকে Team Saathi তৈরি করেছেন আপনার মানসিক সমর্থন ও বন্ধুত্বের জন্য। বলুন, আজ আপনাকে কীভাবে সাহায্য করতে পারি?";
                 }
                 this._lastAssistantSpokenText = introGreeting;
                 this._emitTranscript('assistant', introGreeting, true);

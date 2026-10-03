@@ -3,7 +3,7 @@ const { MultimodalEmotionEstimator } = require('../src/audio/emotion_estimator')
 const { ProsodyController } = require('../src/audio/prosody_controller');
 
 console.log('====================================================');
-console.log('SUNO AI - HUMAN-LIKE VOICE & PROSODY UNIT TEST SUITE');
+console.log('SAATHI AI - HUMAN-LIKE VOICE & PROSODY UNIT TEST SUITE');
 console.log('====================================================\n');
 
 let passedCount = 0;

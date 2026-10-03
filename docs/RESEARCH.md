@@ -1,4 +1,4 @@
-# RESEARCH & TECHNICAL SPECIFICATION: SUNO AI Telemetry & Emotional Intelligence
+# RESEARCH & TECHNICAL SPECIFICATION: SAATHI AI Telemetry & Emotional Intelligence
 
 **Author:** Antigravity AI  
 **Scope:** Multilingual text distress, acoustic emotion correlates, local vs. cloud speech models, computer vision affect boundary conditions, and non-diagnostic framing.  
@@ -62,7 +62,7 @@ We evaluated pretrained speech emotion recognition (SER) models (e.g., `wav2vec 
 - **Model Footprint:** ~360 MB – 1.2 GB download.
 - **Inference Latency:** On CPU in Node.js or browser ONNX, latency ranges from 400ms to 1200ms per 3-second chunk, imposing unacceptable CPU thermal load and UI stutter.
 - **Language Bias:** Almost all open SER checkpoints are trained on English datasets (RAVDESS, IEMOCAP, CREMA-D) or standard Mandarin. Performance on South Asian languages (Hindi, Bengali, Indian-accented English) shows severe domain degradation.
-- **Recommendation:** Do **not** embed a multi-gigabyte neural SER model into SUNO AI. Retain the lightweight, non-invasive acoustic prosody analyzer, clearly labeled as an **Auxiliary Heuristic Indicator**.
+- **Recommendation:** Do **not** embed a multi-gigabyte neural SER model into SAATHI AI. Retain the lightweight, non-invasive acoustic prosody analyzer, clearly labeled as an **Auxiliary Heuristic Indicator**.
 
 ---
 

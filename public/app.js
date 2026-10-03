@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
       type: 'Local Device (Unlimited Free)'
     },
     'builtin': {
-      name: 'SUNO Neural Core',
+      name: 'SAATHI Neural Core',
       provider: 'Built-in Browser/Server',
       maxRequests: 999999,
       maxTokens: 999999999,
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Mini Iridescent Sphere Avatar for AI with Logo
       const avatar = document.createElement('div');
       avatar.className = 'aura-mini-sphere-avatar';
-      avatar.innerHTML = `<img src="SUNO.png" alt="SUNO AI" class="avatar-logo-mini">`;
+      avatar.innerHTML = `<img src="SUNO.png" alt="SAATHI AI" class="avatar-logo-mini">`;
 
       const contentDiv = document.createElement('div');
       contentDiv.className = 'aura-assistant-content';
@@ -485,7 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const avatar = document.createElement('div');
     avatar.className = 'aura-mini-sphere-avatar';
-    avatar.innerHTML = `<img src="SUNO.png" alt="SUNO AI" class="avatar-logo-mini">`;
+    avatar.innerHTML = `<img src="SUNO.png" alt="SAATHI AI" class="avatar-logo-mini">`;
 
     const contentDiv = document.createElement('div');
     contentDiv.className = 'aura-assistant-content';
@@ -1032,7 +1032,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // =========================================================
-  // SUNO AI - THEMED SVG LOADING SCREEN CONTROLLER
+  // SAATHI AI - THEMED SVG LOADING SCREEN CONTROLLER
   // =========================================================
   function initSunoLoadingScreen() {
     const loadingOverlay = document.getElementById('sunoLoadingScreen');
@@ -1041,8 +1041,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!loadingOverlay) return;
 
-    // Typewriter Word Animation ("SUNO AI")
-    const fullText = "SUNO AI";
+    // Typewriter Word Animation ("SAATHI AI")
+    const fullText = "SAATHI AI";
     let charIdx = 0;
 
     if (cursor) cursor.classList.add('active');

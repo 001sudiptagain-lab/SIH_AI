@@ -1,7 +1,7 @@
 {
-  "name": "suno-ai",
+  "name": "saathi-ai",
   "version": "0.6.7",
-  "description": "SUNO AI - Emotionally Supportive AI Companion & Voice Assistant",
+  "description": "SAATHI AI - Emotionally Supportive AI Companion & Voice Assistant",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

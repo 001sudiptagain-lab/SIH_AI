@@ -1,6 +1,6 @@
-# AUDIT: SUNO AI Telemetry, SVI, Emotion & Multimodal Panel
+# AUDIT: SAATHI AI Telemetry, SVI, Emotion & Multimodal Panel
 
-**Target Application:** SUNO AI v0.6.7 (Port 3000 / WebSocket `/voice-ws`)  
+**Target Application:** SAATHI AI v0.6.7 (Port 3000 / WebSocket `/voice-ws`)  
 **Scope:** Right-side "Stress / Emotion / Multimodal" panel, voice pipeline telemetry, SVI calculation, audio analysis, multimodal fusion, and follow-up assessment screening flow.  
 **Auditor:** Antigravity AI  
 **Date:** 2026-10-03  

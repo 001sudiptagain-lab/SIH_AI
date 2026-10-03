@@ -1,14 +1,14 @@
-# 🌊 SUNO AI — Emotionally Supportive AI Companion & Voice Assistant (v0.6.7)
+# 🌊 SAATHI AI — Emotionally Supportive AI Companion & Voice Assistant (v0.6.7)
 
 > **Repository:** [https://github.com/001sudiptagain-lab/SIH_AI.git](https://github.com/001sudiptagain-lab/SIH_AI.git)  
-> **Author & Creator:** Sudipta Gain  
+> **Co-Founder & CEO:** Team Saathi  
 > **Platform:** Node.js, Express, WebSocket, Web Audio API, Gemini 1.5 Live, Local SVI 2.0 Engine, Multimodal Emotion Telemetry
 
 ---
 
 ## 🌟 Overview
 
-**SUNO AI** is a real-time, emotionally supportive AI companion and voice assistant. Built with an immersive **Deep Ocean Blue & Electric Azure** aesthetic, it delivers ultra-low-latency bidirectional conversational voice, multimodal emotion recognition, real-time stress index monitoring (SVI 2.0), and safety triage protocols.
+**SAATHI AI** is a real-time, emotionally supportive AI companion and voice assistant. Built with an immersive **Deep Ocean Blue & Electric Azure** aesthetic, it delivers ultra-low-latency bidirectional conversational voice, multimodal emotion recognition, real-time stress index monitoring (SVI 2.0), and safety triage protocols.
 
 ---
 
@@ -122,7 +122,7 @@
 
 1. **Local Audio Processing**: VAD (Voice Activity Detection), acoustic energy, and prosody metrics are computed directly on the client machine via the Web Audio API.
 2. **Local Face Emotion Processing**: WebCam facial expression estimation executes 100% in-browser via TensorFlow.js / `face-api.js`. No raw camera streams are transmitted or recorded.
-3. **Clinical Guardrails**: SUNO AI is designed as an emotionally supportive companion. It provides transparent disclaimers that conversation-based indicators are non-clinical, and automatically presents 24/7 national toll-free helplines upon detecting critical distress.
+3. **Clinical Guardrails**: SAATHI AI is designed as an emotionally supportive companion. It provides transparent disclaimers that conversation-based indicators are non-clinical, and automatically presents 24/7 national toll-free helplines upon detecting critical distress.
 
 ---
 
@@ -135,12 +135,12 @@
 
 ---
 
-## 👨‍💻 Author & Maintainer
-
-- **Developer:** Sudipta Gain
+## 👨‍💻 Leadership & Development
+ 
+- **Co-Founder & CEO:** Team Saathi
 - **GitHub:** [@001sudiptagain-lab](https://github.com/001sudiptagain-lab)
 - **Repository:** [SIH_AI](https://github.com/001sudiptagain-lab/SIH_AI.git)
 
 ---
 
-*SUNO AI v0.6.7 — Emotionally Supportive AI Companion & Real-Time Voice Assistant.*
+*SAATHI AI v0.6.7 — Emotionally Supportive AI Companion & Real-Time Voice Assistant.*

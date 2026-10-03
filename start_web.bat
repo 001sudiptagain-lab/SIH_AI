@@ -1,8 +1,8 @@
 @echo off
-title SUNO AI - Local Server
+title SAATHI AI - Local Server
 color 0b
 echo ========================================================
-echo                 STARTING SUNO AI SERVER
+echo                 STARTING SAATHI AI SERVER
 echo ========================================================
 echo.
 
@@ -14,14 +14,14 @@ if not exist "node_modules\" (
     call npm install
 )
 
-echo [2/2] Launching SUNO AI Web Server...
+echo [2/2] Launching SAATHI AI Web Server...
 start "" node server.js
 timeout /t 2 /nobreak >nul
 start http://localhost:3000
 
 echo.
 echo ========================================================
-echo   SUNO AI is now hosted locally at http://localhost:3000
+echo   SAATHI AI is now hosted locally at http://localhost:3000
 echo ========================================================
 timeout /t 3 >nul
 exit

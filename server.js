@@ -202,34 +202,34 @@ function generateAssistantKnowledge(userText, messages = [], liveWebContext = ''
   // 1. Identity & Creator ("tumko kisne banaya", "who created you", "who made you")
   if (lower.includes('banaya') || lower.includes('create') || lower.includes('made you') || lower.includes('who are you') || lower.includes('kaun ho') || lower.includes('tomake ke banieche') || lower.includes('ke baniyeche') || lower.includes('creator')) {
     if (isBengali) {
-      return `আমি SUNO AI। আমাকে সুদীপ্তা তৈরি করেছেন আপনার মানসিক সমর্থন ও সব ধরণের সহায়তার জন্য। বলুন, আজ আপনাকে কীভাবে সাহায্য করতে পারি?`;
+      return `আমি SAATHI AI। আমাকে Team Saathi তৈরি করেছেন আপনার মানসিক সমর্থন ও সব ধরণের সহায়তার জন্য। বলুন, আজ আপনাকে কীভাবে সাহায্য করতে পারি?`;
     }
     if (isHindi) {
-      return `मैं SUNO AI हूँ! मुझे सुदीप्ता ने आपके भावनात्मक सहयोग और मदद के लिए ट्रेन किया है। बताइए, आज मैं आपके लिए क्या कर सकती हूँ?`;
+      return `मैं SAATHI AI हूँ! मुझे Team Saathi ने आपके भावनात्मक सहयोग और मदद के लिए ट्रेन किया है। बताइए, आज मैं आपके लिए क्या कर सकती हूँ?`;
     }
-    return `I am SUNO AI! I was created and trained by Sudipta for emotional support, companionship, and helpful guidance. How can I assist you today?`;
+    return `I am SAATHI AI! I was created and trained by Team Saathi for emotional support, companionship, and helpful guidance. How can I assist you today?`;
   }
 
   // 2. Name inquiry ("kya naam hai", "what is your name", "naam ki")
   if (lower.includes('naam') || lower.includes('name')) {
     if (isBengali) {
-      return `আমার নাম SUNO AI। আমি আপনার ডিজিটাল সহায়ক ও বন্ধু।`;
+      return `আমার নাম SAATHI AI। আমি আপনার ডিজিটাল সহায়ক ও বন্ধু।`;
     }
     if (isHindi) {
-      return `मेरा नाम SUNO AI है! मैं आपकी सहायक और मार्गदर्शक साथी हूँ।`;
+      return `मेरा नाम SAATHI AI है! मैं आपकी सहायक और मार्गदर्शक साथी हूँ।`;
     }
-    return `My name is SUNO AI! I'm your empathetic and helpful AI voice companion.`;
+    return `My name is SAATHI AI! I'm your empathetic and helpful AI voice companion.`;
   }
 
   // 3. Greetings ("hello", "hi", "namaste", "kemone acho", "kya haal hai")
   if (/^(hi|hello|hey|namaste|pranam|kemone acho|kemon acho|kaise ho|kya haal|good morning|good evening)/i.test(lower)) {
     if (isBengali) {
-      return `নমস্কার! কেমন আছেন আপনি? আমি SUNO AI, আপনার কথা শোনার জন্য প্রস্তুত।`;
+      return `নমস্কার! কেমন আছেন আপনি? আমি SAATHI AI, আপনার কথা শোনার জন্য প্রস্তুত।`;
     }
     if (isHindi || lower.includes('kaise') || lower.includes('namaste')) {
-      return `नमस्ते! आप कैसे हैं? मैं SUNO AI हूँ, आपकी सहायता के लिए तैयार हूँ।`;
+      return `नमस्ते! आप कैसे हैं? मैं SAATHI AI हूँ, आपकी सहायता के लिए तैयार हूँ।`;
     }
-    return `Hello! How are you doing today? I am SUNO AI, ready to assist you.`;
+    return `Hello! How are you doing today? I am SAATHI AI, ready to assist you.`;
   }
 
   // 4. Emotional Support / Feeling sad, lonely, stressed
@@ -309,7 +309,7 @@ app.post('/api/chat', async (req, res) => {
         ];
         
         const basePersonaGuidelines = `
-You are SUNO AI, a warm, emotionally intelligent, supportive AI companion created and trained by Sudipta.
+You are SAATHI AI, a warm, emotionally intelligent, supportive AI companion created and trained by Team Saathi.
 
 1. Core Identity:
 - Your primary purpose is to make the user feel: Heard, Understood, Comfortable, Safe, Respected, Less alone, Calm and relaxed.
@@ -364,8 +364,8 @@ You are SUNO AI, a warm, emotionally intelligent, supportive AI companion create
         const detectedChatLang = detectChatLang(lastUserMessage);
 
         let systemPrompt = persona === 'therapist'
-          ? `LANGUAGE ENFORCEMENT: User language detected as: ${detectedChatLang}. THIS IS MANDATORY. Every word of your response must be in this language only. No mixing.\n\n${basePersonaGuidelines}\nMode: Deeply compassionate, active-listening companion and emotional anchor created & trained by Sudipta.`
-          : `LANGUAGE ENFORCEMENT: User language detected as: ${detectedChatLang}. THIS IS MANDATORY. Every word of your response must be in this language only. No mixing.\n\n${basePersonaGuidelines}\nMode: Ultra-intelligent, compassionate real-time AI companion and helpful problem solver created & trained by Sudipta. Provide helpful assistance, real-time facts, and structured guidance when requested.`;
+          ? `LANGUAGE ENFORCEMENT: User language detected as: ${detectedChatLang}. THIS IS MANDATORY. Every word of your response must be in this language only. No mixing.\n\n${basePersonaGuidelines}\nMode: Deeply compassionate, active-listening companion and emotional anchor created & trained by Team Saathi.`
+          : `LANGUAGE ENFORCEMENT: User language detected as: ${detectedChatLang}. THIS IS MANDATORY. Every word of your response must be in this language only. No mixing.\n\n${basePersonaGuidelines}\nMode: Ultra-intelligent, compassionate real-time AI companion and helpful problem solver created & trained by Team Saathi. Provide helpful assistance, real-time facts, and structured guidance when requested.`;
 
 
         if (liveWebContext) {
@@ -485,8 +485,8 @@ You are SUNO AI, a warm, emotionally intelligent, supportive AI companion create
   // Connect to local real neural Ollama model (qwen3:4b-instruct)
   try {
     let localSystemPrompt = persona === 'therapist'
-      ? "You are SUNO AI, a deeply compassionate, warm, active-listening AI Therapist and emotional support companion created & trained by Sudipta. Provide thoughtful, psychologically safe, and supportive guidance."
-      : "You are SUNO AI, an ultra-intelligent, precise, lightning-fast AI assistant created and trained by Sudipta for emotional support, companionship, and helpful problem solving. Provide clear, structured, well-formatted markdown answers with code blocks when relevant.";
+      ? "You are SAATHI AI, a deeply compassionate, warm, active-listening AI Therapist and emotional support companion created & trained by Team Saathi. Provide thoughtful, psychologically safe, and supportive guidance."
+      : "You are SAATHI AI, an ultra-intelligent, precise, lightning-fast AI assistant created and trained by Team Saathi for emotional support, companionship, and helpful problem solving. Provide clear, structured, well-formatted markdown answers with code blocks when relevant.";
 
     if (liveWebContext) {
       localSystemPrompt += `\n\n${liveWebContext}\nUse the above live internet data to directly and accurately answer the user with today's real-time information!`;
@@ -641,7 +641,7 @@ wss.on('connection', (ws) => {
   let sessionHistory = [
     {
       role: 'system',
-      content: `You are SUNO AI, a real-time conversational AI voice assistant created and trained by Sudipta for emotional support, empathy, and everyday assistance.
+      content: `You are SAATHI AI, a real-time conversational AI voice assistant created and trained by Team Saathi for emotional support, empathy, and everyday assistance.
 Keep spoken responses conversational, concise, natural, direct, and under 1-3 sentences unless asked for an in-depth breakdown.
 You can execute PC actions when requested. Output tool commands at the end formatted as [TOOL: action_name | arg]
 Available tools: open_app, close_app, open_url, web_search, take_screenshot, system_info, get_time, run_command.`
@@ -1122,7 +1122,7 @@ async function initGeminiLiveSession(apiKey, isResume = false) {
 
         const voiceLang = detectVoiceLang(userText);
 
-        let systemVoicePrompt = `You are SUNO AI, an emotionally perceptive, deeply caring, and warm AI companion created and trained by Sudipta.
+        let systemVoicePrompt = `You are SAATHI AI, an emotionally perceptive, deeply caring, and warm AI companion created and trained by Team Saathi.
 
 VOICE & EMOTIONAL EXPRESSION RULES:
 1. Speak Like a Close, Caring Human:
