@@ -137,7 +137,7 @@
 
 ## 👨‍💻 Leadership & Development
  
-- **Co-Founder & CEO:** Team Saathi
+- **Co-Founder & CEO:** Sudipta Gain
 - **GitHub:** [@001sudiptagain-lab](https://github.com/001sudiptagain-lab)
 - **Repository:** [SIH_AI](https://github.com/001sudiptagain-lab/SIH_AI.git)
 
