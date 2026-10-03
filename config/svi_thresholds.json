@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "name": "NHAA-SVI-ENGINE",
+  "disclaimer": "This system is a decision-support and triage system, NOT a clinical or medical diagnostic system.",
+  "thresholds": {
+    "low": {
+      "min": 0,
+      "max": 24,
+      "label": "LOW",
+      "description": "Limited observable distress, no immediate threat, grievance workflow continues normally."
+    },
+    "moderate": {
+      "min": 25,
+      "max": 49,
+      "label": "MODERATE",
+      "description": "Noticeable anxiety, persistent fear or emotional distress without immediate physical danger. Prioritized counselling and welfare review."
+    },
+    "high": {
+      "min": 50,
+      "max": 74,
+      "label": "HIGH",
+      "description": "Severe emotional distress, threats of retaliation or violence against victim/family, high vulnerability requiring prompt human review."
+    },
+    "critical": {
+      "min": 75,
+      "max": 100,
+      "label": "CRITICAL",
+      "description": "Explicit self-harm/suicide ideation, active violence, or imminent life threat. Mandatory immediate human escalation."
+    }
+  },
+  "weights": {
+    "threat_and_safety": 0.35,
+    "linguistic_distress": 0.25,
+    "speech_dynamics": 0.20,
+    "situational_context": 0.20
+  },
+  "confidence_parameters": {
+    "min_indicators_for_high_confidence": 4,
+    "ambiguity_penalty": 0.25
+  }
+}

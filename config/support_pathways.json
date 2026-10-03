@@ -1,0 +1,72 @@
+{
+  "pathways": {
+    "CRITICAL": [
+      {
+        "id": "EMERGENCY_HUMAN_DISPATCH",
+        "title": "Immediate Escalation to Authorized Human Responder",
+        "rationale": "High-priority crisis indicators or active danger detected requiring immediate real-time human intervention.",
+        "authority": "NHAA Duty Officer / Emergency Dispatch"
+      },
+      {
+        "id": "POLICE_EMERGENCY_LIAISON",
+        "title": "Local Police Station / PCR Coordination Assessment",
+        "rationale": "Physical threat to life, active home confinement, or assault situation reported.",
+        "authority": "NHAA Police Liaison Desk"
+      },
+      {
+        "id": "CRISIS_COUNSELLING_BRIDGE",
+        "title": "Immediate Psychological First Aid (Tele-MANAS / NHAA Mental Health Desk)",
+        "rationale": "Severe acute distress or explicit suicidal/self-harm ideation.",
+        "authority": "Designated Mental Health Professional"
+      }
+    ],
+    "HIGH": [
+      {
+        "id": "SUPERVISOR_PRIORITY_REVIEW",
+        "title": "Priority Case Review by Senior Grievance Officer",
+        "rationale": "Severe intimidation, threat of retaliation, or significant vulnerability identified.",
+        "authority": "Senior NHAA Case Officer"
+      },
+      {
+        "id": "DLSA_LEGAL_AID",
+        "title": "District Legal Services Authority (DLSA) Fast-Track Referral",
+        "rationale": "SC/ST Prevention of Atrocities Act compliance, FIR registration support, or legal protection required.",
+        "authority": "DLSA Legal Aid Desk"
+      },
+      {
+        "id": "WITNESS_PROTECTION_ASSESSMENT",
+        "title": "Witness Protection Scheme Evaluation",
+        "rationale": "Complainant or family under active retaliation threat from perpetrators.",
+        "authority": "District Magistrate / SP Office Liaison"
+      }
+    ],
+    "MODERATE": [
+      {
+        "id": "SCHEDULED_COUNSELLING",
+        "title": "Trauma-Informed Telephonic Counselling Referral",
+        "rationale": "Noticeable emotional distress, ongoing anxiety, or sleep disturbances.",
+        "authority": "NHAA Counselling Desk"
+      },
+      {
+        "id": "WELFARE_REHABILITATION_CHECK",
+        "title": "Rehabilitation & Social Welfare Scheme Check",
+        "rationale": "Social boycott, economic disruption, or displacement vulnerability.",
+        "authority": "Social Welfare Department Liaison"
+      }
+    ],
+    "LOW": [
+      {
+        "id": "STANDARD_GRIEVANCE_INTAKE",
+        "title": "Standard Grievance Registration & Information Provision",
+        "rationale": "No immediate physical threat or acute psychological distress observed.",
+        "authority": "NHAA Helpline Agent"
+      },
+      {
+        "id": "HELPLINE_PORTAL_TRACKING",
+        "title": "Complaint Docket ID & Self-Service Portal Access",
+        "rationale": "Standard grievance recording and status update protocol.",
+        "authority": "NHAA Portal System"
+      }
+    ]
+  }
+}

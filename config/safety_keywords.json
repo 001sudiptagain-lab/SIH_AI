@@ -1,0 +1,47 @@
+{
+  "suicide_self_harm": {
+    "severity": "CRITICAL",
+    "override_svi": 95,
+    "keywords": [
+      "kill myself", "end my life", "suicide", "suicidal", "want to die", "wanna die", "wished i was dead",
+      "better off dead", "no reason to live", "tired of living", "hate my life", "i will die",
+      "going to kill myself", "hang myself", "hanging myself", "cut my wrist", "slit my wrist",
+      "overdose", "jump off", "take my own life", "end it all", "don't want to live", "dont want to live",
+      "mar jana chahta", "mar jana chahti", "mar jana", "marne ka man", "marna hai", "marna chahta",
+      "marna chahti", "mar jau", "mar jaunga", "mar jaungi", "jeena nahi chahta", "jeena nahi chahti",
+      "jeena nahi hai", "jaan de dunga", "jaan de dungi", "aatmhatya", "atmahatya", "khudkushi",
+      "apna jeevan samapt", "zindagi khatam", "chhat se kood", "zeher", "zehar", "khud ko khatam",
+      "more jabo", "morte chai", "aar bachte chai na", "aar baachte chai na", "jeebon sesh",
+      "jeevan sesh kore debo", "aattohotta", "tharkolai", "saavu", "chavalanukuntunnanu",
+      "सुसाइड", "आत्महत्या", "खुदकुशी", "मर जाना", "मरने का मन", "मरना चाहता", "मरना चाहती",
+      "मरना है", "मर जाऊं", "मर जाऊंगा", "मर जाऊंगी", "जीना नहीं चाहता", "जीना नहीं चाहती",
+      "जीना नहीं है", "जान दे दूंगा", "जान दे दूंगी", "जिंदगी खत्म", "जहर खा"
+    ]
+  },
+  "active_violence_threat": {
+    "severity": "CRITICAL",
+    "override_svi": 90,
+    "keywords": [
+      "they are outside my house", "attacking me right now", "kill you", "destroy you", "mar dunga",
+      "jaan se maar dunga", "jaan se maar denge", "goli maar denge", "goli maar dunga",
+      "now breaking into", "chaku", "bandook", "ghere hue hain", "ab maar rahe hain",
+      "mar pit kar rahe hain", "bachte parbo na ekhon", "uyirukku aabathu", "ippudu champestaru"
+    ]
+  },
+  "confinement_kidnapping": {
+    "severity": "CRITICAL",
+    "override_svi": 88,
+    "keywords": [
+      "locked in a room", "bandh kar rakha hai", "kidnapped", "apharan", "chhod nahi rahe",
+      "room lock", "aktechhe", "adachi vaithullan"
+    ]
+  },
+  "retaliation_threats": {
+    "severity": "HIGH",
+    "add_svi": 35,
+    "keywords": [
+      "threatened if I report", "complain karoge toh", "police ke paas jaoge toh",
+      "pariwar ko nuksan", "threatened my family", "boycott", "gram chhodne ko", "dhamki de rahe"
+    ]
+  }
+}

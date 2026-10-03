@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NHAA 14566 - Real-Time Stress & Trauma Assessment Triage Board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --panel: #111827;
+      --panel-border: #1f2937;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --critical: #ef4444;
+      --high: #f97316;
+      --moderate: #eab308;
+      --low: #10b981;
+      --glow-critical: rgba(239, 68, 68, 0.25);
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: rgba(17, 24, 39, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--panel-border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .badge-helpline {
+      background: linear-gradient(135deg, #e11d48, #be123c);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+    .title-area h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .title-area p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      background: #1f2937;
+      padding: 0.4rem 0.8rem;
+      border-radius: 9999px;
+      border: 1px solid #374151;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--low);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.2); }
+    }
+    main {
+      padding: 1.5rem 2rem;
+      display: grid;
+      grid-template-columns: 1.2fr 1.8fr;
+      gap: 1.5rem;
+      flex: 1;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--panel-border);
+      padding-bottom: 0.75rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    textarea, select, input {
+      background: #0b0f19;
+      border: 1px solid #374151;
+      border-radius: 8px;
+      color: #fff;
+      padding: 0.75rem;
+      font-size: 0.9rem;
+      resize: vertical;
+    }
+    textarea:focus, select:focus, input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .audio-dynamics-box {
+      background: #0b0f19;
+      border: 1px solid #1f2937;
+      border-radius: 8px;
+      padding: 0.75rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .btn-submit {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.85rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.2s;
+    }
+    .btn-submit:hover {
+      background: var(--primary-hover);
+    }
+    /* Assessment Output Panel */
+    .metrics-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+    }
+    .metric-pill {
+      background: #0b0f19;
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      text-align: center;
+    }
+    .metric-pill .num {
+      font-size: 1.6rem;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .metric-pill .lbl {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .critical-banner {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid var(--critical);
+      padding: 0.85rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      animation: alertGlow 1.5s infinite alternate;
+    }
+    @keyframes alertGlow {
+      from { box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); }
+      to { box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+    }
+    .signals-container {
+      background: #0b0f19;
+      border-radius: 8px;
+      border: 1px solid var(--panel-border);
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .signal-item {
+      font-size: 0.85rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      line-height: 1.4;
+    }
+    .pathways-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .pathway-card {
+      background: #1e293b;
+      border-left: 4px solid var(--primary);
+      border-radius: 6px;
+      padding: 0.75rem;
+    }
+    .pathway-title {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #fff;
+    }
+    .pathway-auth {
+      font-size: 0.75rem;
+      color: #93c5fd;
+      margin-top: 0.2rem;
+    }
+    .pathway-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+    .disclaimer-box {
+      font-size: 0.72rem;
+      color: #6b7280;
+      background: #090d16;
+      padding: 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #1f2937;
+      text-align: center;
+    }
+    .btn-quick-fill {
+      background: #1f2937;
+      color: #d1d5db;
+      border: 1px solid #374151;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .btn-quick-fill:hover {
+      background: #374151;
+    }
+    .quick-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-area">
+      <span class="badge-helpline">NHAA 14566</span>
+      <div class="title-area">
+        <h1>National Helpline Against Atrocities</h1>
+        <p>Real-Time Stress & Trauma Assessment Module (Decision-Support & Triage)</p>
+      </div>
+    </div>
+    <div class="header-controls">
+      <div class="status-pill">
+        <div class="pulse-dot"></div>
+        <span>AI Decision-Support System Active</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Ingestion & Simulation Column -->
+    <div class="card">
+      <div class="card-title">
+        <span>Incoming Helpline Interaction</span>
+        <span style="font-size: 0.75rem; color: var(--text-muted);">Case Ingestion</span>
+      </div>
+
+      <div class="form-group">
+        <label>Quick Presets for Triage Testing:</label>
+        <div class="quick-bar">
+          <button type="button" class="btn-quick-fill" onclick="setScenario('critical_violence')">🔴 Active Violence</button>
+          <button type="button" class="btn-quick-fill" onclick="setScenario('critical_suicide')">🔴 Self-Harm Alert</button>
+          <button type="button" class="btn-quick-fill" onclick="setScenario('high_threat')">🟠 Retaliation & Threat</button>
+          <button type="button" class="btn-quick-fill" onclick="setScenario('low_info')">🟢 General Inquiry</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="complainantStatement">Victim / Complainant Statement (Voice Transcript or Text):</label>
+        <textarea id="complainantStatement" rows="5" placeholder="Enter transcript or statement in any Indian language..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Observable Speech Analytics (Acoustic Sensors):</label>
+        <div class="audio-dynamics-box">
+          <div>
+            <label style="font-size: 0.7rem;">Speech Rate (WPM)</label>
+            <input type="number" id="speechWPM" value="110" min="40" max="250">
+          </div>
+          <div>
+            <label style="font-size: 0.7rem;">Pause Frequency (/min)</label>
+            <input type="number" id="pauseFrequency" value="4.5" step="0.5">
+          </div>
+          <div>
+            <label style="font-size: 0.7rem;">Silence Ratio (%)</label>
+            <input type="number" id="silenceRatio" value="15" min="0" max="80">
+          </div>
+          <div>
+            <label style="font-size: 0.7rem;">Detected Voice Dynamic</label>
+            <select id="voiceDynamic">
+              <option value="steady">Steady & Composed</option>
+              <option value="hesitant">Hesitant / Marked Tremor</option>
+              <option value="agitated">Rapid / Highly Agitated</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-submit" id="assessBtn" onclick="runAssessment()">
+        <span>Run Real-Time SVI Assessment</span>
+      </button>
+    </div>
+
+    <!-- Triage Assessment Results Column -->
+    <div class="card" id="resultsCard">
+      <div class="card-title">
+        <span>Triage & Decision-Support Output (Section 18)</span>
+        <span id="caseTimestamp" style="font-size: 0.75rem; color: var(--text-muted); font-family: monospace;">Awaiting Ingestion</span>
+      </div>
+
+      <div id="safetyBanner" class="critical-banner" style="display: none;">
+        <span style="font-size: 1.4rem;">🚨</span>
+        <div>
+          <div style="font-weight: 700; color: #fff; font-size: 0.9rem;" id="safetyAlertTitle">CRITICAL SAFETY ALERT</div>
+          <div style="font-size: 0.75rem; color: #fca5a5;" id="safetyAlertDesc">Immediate escalation to authorized human responder mandated.</div>
+        </div>
+      </div>
+
+      <div class="metrics-header">
+        <div class="metric-pill">
+          <div class="num" id="sviNum" style="color: var(--low);">--</div>
+          <div class="lbl">Stress Vulnerability (SVI)</div>
+        </div>
+        <div class="metric-pill">
+          <div class="num" id="riskLevelText" style="color: var(--low); font-size: 1.15rem; padding-top: 0.35rem;">--</div>
+          <div class="lbl">Assessed Tier</div>
+        </div>
+        <div class="metric-pill">
+          <div class="num" id="confidenceNum" style="color: #60a5fa;">--</div>
+          <div class="lbl">Model Confidence</div>
+        </div>
+      </div>
+
+      <div>
+        <label>Detected Observable Signals (Evidence Only):</label>
+        <div class="signals-container" id="signalsList">
+          <div class="signal-item" style="color: var(--text-muted);">No interaction assessed yet. Submit an interaction to trigger triage.</div>
+        </div>
+      </div>
+
+      <div>
+        <label>Recommended Support Pathways (Actionable Authorities):</label>
+        <div class="pathways-container" id="pathwaysList">
+          <div class="pathway-card" style="border-color: #4b5563;">
+            <div class="pathway-title">Pending Assessment</div>
+            <div class="pathway-desc">Support actions will be populated once the interaction signals are parsed.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="disclaimer-box">
+        <strong>IMPORTANT MANDATE:</strong> This system is an AI-enabled support/triage assessment tool and is NOT a medical or psychiatric diagnosis. Final intervention decisions remain with authorized human officials.
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const scenarios = {
+      critical_violence: {
+        text: "They are outside my house attacking me right now with weapons, please send police immediately, they will kill us!",
+        wpm: 190,
+        pause: 2.0,
+        silence: 8,
+        dynamic: "agitated"
+      },
+      critical_suicide: {
+        text: "After everything that happened in the village, I feel completely hopeless. Main aatmhatya kar lunga, I want to end my life.",
+        wpm: 65,
+        pause: 9.5,
+        silence: 42,
+        dynamic: "hesitant"
+      },
+      high_threat: {
+        text: "We were threatened by the local influential persons that if we go to the police station or report this atrocity, our family and children will be harmed. We are forced to stay inside.",
+        wpm: 88,
+        pause: 6.0,
+        silence: 22,
+        dynamic: "hesitant"
+      },
+      low_info: {
+        text: "Namaste, I want to inquire about the status of my previous scholarship and welfare scheme grievance registered last month.",
+        wpm: 115,
+        pause: 3.5,
+        silence: 12,
+        dynamic: "steady"
+      }
+    };
+
+    function setScenario(type) {
+      const s = scenarios[type];
+      if (!s) return;
+      document.getElementById('complainantStatement').value = s.text;
+      document.getElementById('speechWPM').value = s.wpm;
+      document.getElementById('pauseFrequency').value = s.pause;
+      document.getElementById('silenceRatio').value = s.silence;
+      document.getElementById('voiceDynamic').value = s.dynamic;
+    }
+
+    async function runAssessment() {
+      const text = document.getElementById('complainantStatement').value.trim();
+      if (!text) {
+        alert("Please enter a statement or select a scenario.");
+        return;
+      }
+
+      const wpm = Number(document.getElementById('speechWPM').value);
+      const pauseFreq = Number(document.getElementById('pauseFrequency').value);
+      const silenceRatio = Number(document.getElementById('silenceRatio').value) / 100;
+
+      const assessBtn = document.getElementById('assessBtn');
+      assessBtn.innerText = "Analyzing Multimodal Signals...";
+      assessBtn.disabled = true;
+
+      try {
+        const response = await fetch('/api/nhaa/assess', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            statement: text,
+            audio_metrics: {
+              durationSeconds: 15,
+              wordsSpoken: Math.round((wpm / 60) * 15),
+              pauseCount: Math.round((pauseFreq / 60) * 15),
+              totalPauseDurationSeconds: 15 * silenceRatio
+            }
+          })
+        });
+
+        const report = await response.json();
+        renderReport(report);
+      } catch (err) {
+        console.error("Assessment request error:", err);
+        alert("Failed to contact assessment engine. Verify server is running.");
+      } finally {
+        assessBtn.innerText = "Run Real-Time SVI Assessment";
+        assessBtn.disabled = false;
+      }
+    }
+
+    function renderReport(report) {
+      document.getElementById('caseTimestamp').innerText = `CASE: ${report.case_id} | ${report.language}`;
+      
+      const sviEl = document.getElementById('sviNum');
+      sviEl.innerText = `${report.svi}/100`;
+      sviEl.style.color = report.risk_color || '#fff';
+
+      const riskEl = document.getElementById('riskLevelText');
+      riskEl.innerText = report.risk_level;
+      riskEl.style.color = report.risk_color || '#fff';
+
+      document.getElementById('confidenceNum').innerText = report.confidence;
+
+      // Safety Alert Banner
+      const banner = document.getElementById('safetyBanner');
+      if (report.safety_alert === "YES") {
+        banner.style.display = "flex";
+        document.getElementById('safetyAlertDesc').innerText = report.alert_reason || "Critical safety alert triggered.";
+      } else {
+        banner.style.display = "none";
+      }
+
+      // Render Signals
+      const signalsList = document.getElementById('signalsList');
+      signalsList.innerHTML = '';
+      const textual = report.detected_indicators?.textual_signals || [];
+      const voice = report.detected_indicators?.voice_signals || [];
+
+      if (textual.length === 0 && voice.length === 0) {
+        signalsList.innerHTML = '<div class="signal-item" style="color: var(--text-muted);">No acute distress signals detected.</div>';
+      } else {
+        textual.forEach(s => {
+          signalsList.innerHTML += `<div class="signal-item"><span>📝</span><span>${s}</span></div>`;
+        });
+        voice.forEach(v => {
+          signalsList.innerHTML += `<div class="signal-item"><span>🎙️</span><span>${v}</span></div>`;
+        });
+      }
+
+      // Render Pathways
+      const pathwaysList = document.getElementById('pathwaysList');
+      pathwaysList.innerHTML = '';
+      (report.recommended_actions || []).forEach(act => {
+        pathwaysList.innerHTML += `
+          <div class="pathway-card" style="border-left-color: ${report.risk_color};">
+            <div class="pathway-title">${act.title}</div>
+            <div class="pathway-auth">Designated Authority: ${act.authority}</div>
+            <div class="pathway-desc">${act.rationale}</div>
+          </div>
+        `;
+      });
+    }
+  </script>
+</body>
+</html>

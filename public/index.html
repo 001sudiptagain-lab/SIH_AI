@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SUNO AI v0.6.7</title>
+  <link rel="icon" type="image/png" href="SUNO.png">
+  <link rel="apple-touch-icon" href="SUNO.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- GSAP Core & Plugins -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!-- Markdown & Code Highlight -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="style.css?v=1.3.1">
+  <style>
+    /* CRITICAL MOBILE RESCUE STYLES */
+    @media (max-width: 768px) {
+      html, body {
+        height: 100% !important;
+        width: 100% !important;
+        overflow: hidden !important;
+        position: fixed !important;
+        inset: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .aura-app-layout {
+        padding: 0 !important;
+        margin: 0 !important;
+        height: 100% !important;
+        height: 100dvh !important;
+        width: 100vw !important;
+        gap: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+      }
+      .aura-main-panel {
+        height: 100% !important;
+        height: 100dvh !important;
+        width: 100vw !important;
+        border-radius: 0 !important;
+        border: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        position: relative !important;
+        overflow: hidden !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+      }
+      .aura-top-header {
+        height: 52px !important;
+        min-height: 52px !important;
+        max-height: 52px !important;
+        flex-shrink: 0 !important;
+        padding: 0 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        position: relative !important;
+        z-index: 20 !important;
+      }
+      .aura-messages-container {
+        flex: 1 1 auto !important;
+        height: auto !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 10px 14px 10px 14px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        box-sizing: border-box !important;
+      }
+      .aura-welcome-hero {
+        margin: auto 0 !important;
+        padding: 12px 6px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+      .aura-hero-emblem {
+        width: 70px !important;
+        height: 70px !important;
+        margin-bottom: 2px !important;
+      }
+      .aura-hero-logo-wrapper {
+        width: 70px !important;
+        height: 70px !important;
+        padding: 6px !important;
+      }
+      .aura-hero-heading {
+        font-size: 19px !important;
+        line-height: 1.25 !important;
+        margin-bottom: 4px !important;
+        font-weight: 800 !important;
+      }
+      .aura-hero-sub {
+        font-size: 12.5px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 12px !important;
+        max-width: 320px !important;
+      }
+      .aura-prompt-grid {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+      }
+      .aura-prompt-card {
+        padding: 8px 12px !important;
+      }
+
+      /* Mobile Chat Input Dock - Direct flex item at bottom of main-panel */
+      .aura-input-wrapper {
+        position: relative !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        flex-shrink: 0 !important;
+        width: 100% !important;
+        padding: 6px 12px calc(10px + env(safe-area-inset-bottom, 8px)) 12px !important;
+        background: linear-gradient(180deg, rgba(3, 13, 26, 0) 0%, rgba(6, 20, 42, 0.40) 40%, rgba(10, 32, 68, 0.70) 100%) !important;
+        backdrop-filter: blur(14px) !important;
+        -webkit-backdrop-filter: blur(14px) !important;
+        border-top: 1px solid rgba(147, 197, 253, 0.20) !important;
+        z-index: 100 !important;
+        box-sizing: border-box !important;
+        pointer-events: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+      .aura-input-capsule {
+        pointer-events: auto !important;
+        width: 100% !important;
+        background: rgba(255, 255, 255, 0.12) !important;
+        padding: 5px 8px 5px 14px !important;
+        border-radius: 28px !important;
+        border: 1px solid rgba(255, 255, 255, 0.22) !important;
+        box-shadow: 0 4px 18px rgba(3, 13, 26, 0.35), 0 0 12px rgba(59, 130, 246, 0.18) !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        box-sizing: border-box !important;
+      }
+      .aura-input-capsule textarea {
+        font-size: 14px !important;
+        min-height: 20px !important;
+        max-height: 70px !important;
+        flex: 1 !important;
+        color: #ffffff !important;
+      }
+      .aura-capsule-btn,
+      .aura-capsule-voice-btn,
+      .aura-capsule-send-btn {
+        width: 35px !important;
+        height: 35px !important;
+        min-width: 35px !important;
+        padding: 0 !important;
+        flex-shrink: 0 !important;
+      }
+      .aura-legal-sub {
+        display: none !important;
+      }
+
+      /* Mobile Live Voice Assistant Stage & Dock */
+      .live-voice-screen {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 0 !important;
+        z-index: 99999 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+      }
+      .live-voice-topbar.modern-topbar {
+        padding: 10px 12px !important;
+        height: 52px !important;
+      }
+      .voice-brand-pill {
+        padding: 4px 10px !important;
+        font-size: 12px !important;
+      }
+      .voice-top-icon-btn {
+        width: 36px !important;
+        height: 36px !important;
+      }
+      .live-dropdown-pill {
+        padding: 6px 10px !important;
+        font-size: 12px !important;
+      }
+      .voice-wave-ribbon-wrapper {
+        width: 240px !important;
+        height: 240px !important;
+        margin: 0 auto 6px auto !important;
+      }
+      #liveVoiceWaveCanvas {
+        width: 240px !important;
+        height: 240px !important;
+      }
+      .floating-dialogue-lower.modern-dialogue-feed {
+        padding: 0 14px !important;
+        min-height: 60px !important;
+        margin: 6px 0 12px 0 !important;
+      }
+      .live-transcript-user {
+        font-size: 13.5px !important;
+      }
+      .live-transcript-ai {
+        font-size: 15.5px !important;
+        line-height: 1.45 !important;
+      }
+      .live-voice-dock.modern-voice-dock {
+        padding: 8px 12px calc(12px + env(safe-area-inset-bottom, 8px)) 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .modern-dock-unified-bar {
+        gap: 8px !important;
+        width: 100% !important;
+      }
+      .dock-type-container {
+        padding: 4px 10px 4px 12px !important;
+        border-radius: 24px !important;
+        gap: 6px !important;
+      }
+      .dock-text-input {
+        font-size: 13px !important;
+      }
+      .voice-side-btn.modern-action-btn,
+      .voice-iridescent-mic-btn.modern-mic-btn {
+        width: 40px !important;
+        height: 40px !important;
+      }
+    }
+  </style>
+</head>
+<body class="aura-theme">
+  <!-- THEME MATCHED ANIMATED LOADING SCREEN -->
+  <div id="sunoLoadingScreen" class="suno-loading-overlay">
+    <div class="suno-loading-center">
+      <div class="suno-loading-brand-card">
+        <!-- Central Stage with Logo + Typewriter Text Lockup -->
+        <div class="suno-loading-lockup">
+          <div class="suno-loading-logo-box">
+            <img src="SUNO.png" alt="SUNO AI Logo" class="suno-loading-logo-img">
+          </div>
+
+          <!-- Typing Word Animation Text Container -->
+          <div class="suno-loading-text-stage">
+            <span class="suno-loading-typed-title" id="sunoLoadingTypedTitle"></span>
+            <span class="suno-loading-cursor" id="sunoLoadingCursor"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Cosmic Silk Ambient Canvas -->
+  <canvas id="cosmicSilkCanvas" class="cosmic-silk-canvas"></canvas>
+  <div class="cosmic-vignette"></div>
+
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <div class="aura-app-layout">
+    <!-- COLLAPSIBLE MINIMALIST SIDEBAR -->
+    <aside class="aura-sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <div class="aura-brand-header">
+          <div class="aura-brand-logo-frame">
+            <img src="SUNO.png" alt="SUNO AI Logo" class="aura-brand-img">
+          </div>
+          <div class="aura-brand-text">
+            <span class="brand-title">SUNO AI</span>
+            <span class="brand-badge">v0.6.7</span>
+          </div>
+          <button id="closeSidebarBtn" class="aura-icon-btn mobile-sidebar-close-btn" title="Close Sidebar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <button id="newChatFullBtn" class="aura-new-chat-pill">
+          <svg class="icon-pulse" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          <span>New Session</span>
+        </button>
+      </div>
+
+      <!-- CHAT HISTORY -->
+      <div class="sidebar-chats-wrapper">
+        <span class="chats-section-heading">Recent Memories</span>
+        <div class="chat-history-list" id="historyList">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <!-- SIDEBAR FOOTER -->
+      <div class="sidebar-bottom">
+        <div class="user-profile-row">
+          <div class="user-avatar-iridescent">
+            <img src="SUNO.png" alt="User" class="avatar-logo-mini">
+          </div>
+          <div class="user-info">
+            <span class="user-name">Sudipta Gain</span>
+            <span class="user-handle">Founder & Creator</span>
+          </div>
+          <button id="openSettingsBtn" class="aura-icon-btn settings-gear-btn" title="Settings">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CHAT PANEL -->
+    <main class="aura-main-panel">
+      <!-- AURA 1.3 FLOATING TOP BAR (Screen 6 Reference) -->
+      <header class="aura-top-header">
+        <button class="aura-nav-icon-btn menu-toggle-btn" id="sidebarToggleBtn" title="Toggle Sidebar (Ctrl+B)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <line class="menu-line menu-line-top" x1="4" y1="6" x2="20" y2="6"></line>
+            <line class="menu-line menu-line-mid" x1="4" y1="12" x2="16" y2="12"></line>
+            <line class="menu-line menu-line-bot" x1="4" y1="18" x2="12" y2="18"></line>
+          </svg>
+        </button>
+
+        <!-- Center Model Selector Pill -->
+        <div class="aura-model-selector-pill" id="modelSelectorPill">
+          <img src="SUNO.png" alt="SUNO" class="pill-logo-icon">
+          <span class="pill-model-title">SUNO AI</span>
+          <span class="pill-badge">ONLINE</span>
+          <svg class="pill-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+
+        <div class="aura-header-actions">
+          <!-- Voice Mode Waveform Button -->
+          <button class="aura-voice-mode-trigger" id="openLiveVoiceBtn" title="Enter Live Voice Screen">
+            <div class="waveform-mini-bars">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <span class="voice-btn-text">Voice</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- CHAT MESSAGE FEED -->
+      <div class="aura-messages-container" id="messagesContainer">
+        <!-- WELCOME HERO (Clean Minimalist Hero: "What's on your mind today?") -->
+        <div class="aura-welcome-hero" id="welcomeHero">
+          <div class="aura-hero-emblem">
+            <div class="aura-sphere-halo"></div>
+            <div class="aura-hero-logo-wrapper">
+              <img src="SUNO.png" alt="SUNO AI" class="aura-hero-logo-img">
+            </div>
+          </div>
+          <h1 class="aura-hero-heading">What's on your mind today?</h1>
+          <p class="aura-hero-sub">Speak naturally, brainstorm ideas, or explore creative narratives.</p>
+        </div>
+      </div>
+
+      <!-- FLOATING AURA INPUT DOCK (Screen 6 & Video Morphing Capsule) -->
+      <div class="aura-input-wrapper">
+        <div class="aura-input-capsule" id="inputCapsule">
+          <button class="aura-capsule-btn attach-btn" id="attachBtn" title="Upload Document or Image">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+          <input type="file" id="fileAttachmentInput" style="display: none;" accept=".txt,.md,.json,.js,.py,.html,.css,.csv,.pdf,.png,.jpg,.jpeg">
+
+          <textarea 
+            id="messageInput" 
+            placeholder="Enter Message..." 
+            rows="1"
+          ></textarea>
+
+          <div class="capsule-right-actions">
+            <!-- Dedicated Voice Sphere Launcher -->
+            <button class="aura-capsule-voice-btn" id="launchLiveVoicePillBtn" title="Launch Live Voice Mode">
+              <div class="voice-sparkle-dot"></div>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+              </svg>
+            </button>
+
+            <!-- Send Up-Arrow Button (From Video Morphing Card) -->
+            <button class="aura-capsule-send-btn" id="sendBtn" title="Send message" disabled>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="aura-legal-sub">
+          SUNO AI v0.6.7 can assist with thoughts, reasoning, emotional support, and voice. Created & trained by Sudipta.
+        </div>
+      </div>
+
+      <!-- IN-CARD LIVE VOICE ASSISTANT STAGE (Embedded inside the main canvas card) -->
+      <div class="live-voice-screen modern-dola-screen in-card-voice-screen" id="liveVoiceScreen">
+
+        <!-- In-Card Minimalist Top Bar -->
+        <div class="live-voice-topbar modern-topbar">
+          <div class="voice-top-left-brand">
+            <button class="voice-top-icon-btn" id="voiceBackBtn" title="Back to Chat Feed">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <div class="voice-brand-pill">
+              <img src="SUNO.png" alt="SUNO" class="voice-brand-icon">
+              <span>SUNO Live</span>
+            </div>
+          </div>
+
+          <div class="voice-top-right-tools">
+            <!-- Multilingual Voice Language selector (Default: Hindi) -->
+            <select id="liveVoiceLangSelect" class="live-dropdown-pill" title="Voice Language">
+              <option value="hi-IN" selected>🇮🇳 Hindi (हिन्दी)</option>
+              <option value="en-US">🌐 English (US)</option>
+              <option value="bn-IN">🇧🇩 Bengali (বাংলা)</option>
+              <option value="auto">✨ Auto Detect</option>
+            </select>
+
+            <!-- Microphone Device Selector -->
+            <select id="liveMicDeviceSelect" class="live-dropdown-pill" title="Microphone Device">
+              <option value="default">🎙️ Default Mic</option>
+            </select>
+
+            <!-- Live Analysis & Assessment Data Toggle Button -->
+            <button class="voice-data-toggle-pill" id="voiceDataToggleBtn" title="Toggle Live Analysis & Assessment">
+              <span class="vd-indicator-dot"></span>
+              <span class="vd-pill-text">Data</span>
+              <svg class="vd-chevron-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="18 15 12 9 6 15"></polyline>
+              </svg>
+            </button>
+
+            <!-- Privacy-first Local Camera Emotion Detection Toggle -->
+            <button class="voice-cam-toggle-pill" id="voiceCamToggleBtn" title="Enable Camera Emotion Detection (Local & Private)">
+              <span class="cam-indicator-dot"></span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+              <span class="cam-btn-text">Cam</span>
+            </button>
+
+            <!-- Exit Voice Mode -->
+            <button class="voice-top-icon-btn close-voice-action" id="dockEndVoiceBtn" title="Exit Voice Mode">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- FROSTED GLASSMORPHISM LIVE ANALYSIS & ASSESSMENT POPUP CARD -->
+          <div class="voice-data-card-popup" id="voiceDataCardPopup">
+            <!-- PAGE 1: LIVE ANALYSIS VIEW (FULL SAATHI RIGHT-SIDE FEATURES) -->
+            <div class="vd-view-page active" id="vdPage1">
+              <!-- AI Provider & Backend Status Row -->
+              <div class="saathi-right-row saathi-provider-row">
+                <div class="saathi-provider-label">AI Provider</div>
+                <div class="saathi-provider-select-wrap">
+                  <select id="saathiAiProviderSelect" class="saathi-provider-select">
+                    <option value="gemini" selected>Gemini</option>
+                    <option value="ollama">Ollama</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="saathi-right-connection-row">
+                <span class="saathi-live-dot" id="saathiBackendDot"></span>
+                <span class="saathi-connection-text" id="saathiBackendText">Voice backend connected</span>
+                <span class="vd-latency-tag" id="vdLatencyVal">1.1s</span>
+              </div>
+
+              <!-- CARD 1: STRESS VULNERABILITY INDEX (SVI) -->
+              <div class="saathi-feature-card svi-card">
+                <div class="saathi-card-header">
+                  <span class="saathi-card-title">STRESS VULNERABILITY INDEX</span>
+                  <div class="vd-trend-tag" id="vdTrendTag">
+                    <span class="vd-trend-arrow" id="vdTrendArrow">→</span>
+                    <span class="vd-trend-text" id="vdTrendText">Stable</span>
+                  </div>
+                </div>
+
+                <div class="saathi-svi-status-row">
+                  <div class="saathi-svi-level-pill" id="vdSeverityBadge">
+                    <span class="saathi-svi-dot"></span>
+                    <span id="vdBadgeText">Assessing...</span>
+                  </div>
+                  <div class="saathi-svi-score-box">
+                    <span class="saathi-svi-score" id="vdSviNum">15</span>
+                    <span class="saathi-svi-denom">/100</span>
+                  </div>
+                </div>
+
+                <!-- Animated Progress Bar -->
+                <div class="saathi-progress-track">
+                  <div class="saathi-progress-fill" id="vdSviProgressBar" style="width: 15%;"></div>
+                </div>
+
+                <!-- Contributing Factors List -->
+                <div class="saathi-contributing-factors" id="vdContributingFactors">
+                  <div class="saathi-factor-bullet">Listening to acoustic &amp; speech tone</div>
+                </div>
+
+                <div class="saathi-card-disclaimer">
+                  Conversation-based vulnerability indicator — not a clinical diagnosis.
+                </div>
+              </div>
+
+              <!-- CARD 2: CONTEXTUAL EMOTION & TONE -->
+              <div class="saathi-feature-card emotion-tone-card">
+                <div class="saathi-card-header">
+                  <span class="saathi-card-title">CONTEXTUAL EMOTION &amp; TONE</span>
+                </div>
+
+                <!-- Voice Tone Acoustic Details Box -->
+                <div class="saathi-sub-card acoustic-sub-card">
+                  <div class="saathi-sub-header">
+                    <div class="saathi-sub-title-left">
+                      <span class="saathi-icon-signal">🎙️</span>
+                      <span class="saathi-sub-title">Voice Tone:</span>
+                      <span class="saathi-tone-badge" id="vdAcousticToneVal">Neutral</span>
+                    </div>
+                    <div class="saathi-distress-tag">
+                      Distress: <strong id="vdAcousticDistressVal">—</strong>
+                    </div>
+                  </div>
+                  <div class="saathi-metrics-quad-grid">
+                    <div class="saathi-quad-item">
+                      <span class="quad-label">Rate:</span>
+                      <span class="quad-val" id="vdVoiceRate">—</span>
+                    </div>
+                    <div class="saathi-quad-item">
+                      <span class="quad-label">Pauses:</span>
+                      <span class="quad-val" id="vdVoicePauses">—</span>
+                    </div>
+                    <div class="saathi-quad-item">
+                      <span class="quad-label">Speech:</span>
+                      <span class="quad-val" id="vdVoiceSpeechPct">0%</span>
+                    </div>
+                    <div class="saathi-quad-item">
+                      <span class="quad-label">Confidence:</span>
+                      <span class="quad-val" id="vdVoiceConfidence">—</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Multimodal Context Fused Box -->
+                <div class="saathi-sub-card multimodal-sub-card">
+                  <div class="saathi-sub-header">
+                    <div class="saathi-sub-title-left">
+                      <span class="saathi-icon-signal">🫧</span>
+                      <span class="saathi-sub-title">Multimodal Context:</span>
+                      <span class="saathi-context-badge" id="vdMultimodalDominant">Calm</span>
+                    </div>
+                    <div class="saathi-distress-tag">
+                      <strong id="vdMultimodalScore">10/100</strong>
+                    </div>
+                  </div>
+                  <div class="saathi-multimodal-meta-row">
+                    <span class="meta-label">Agreement: <strong id="vdMultimodalAgreement">Insufficient Data</strong></span>
+                    <span class="meta-label">Confidence: <strong id="vdMultimodalConfidence">40%</strong></span>
+                  </div>
+                  <div class="saathi-multimodal-reasons-list" id="vdMultimodalReasons">
+                    <div class="reason-bullet">• Acoustic features indicate calm/normal tone</div>
+                    <div class="reason-bullet">• Limited modality data available</div>
+                  </div>
+                </div>
+
+                <!-- Local Camera Analysis Preview & Button -->
+                <div class="saathi-camera-section">
+                  <div class="saathi-cam-preview-box" id="vdCamPreviewBox" style="display: none;">
+                    <video id="voiceCamVideo" playsinline muted autoplay class="saathi-cam-video"></video>
+                    <div class="saathi-cam-face-badge" id="vdCamFaceBadge">
+                      <span id="vdFaceEmoji">😐</span>
+                      <span id="vdFaceDominant">Neutral</span>
+                      <span id="vdFaceScore">(15%)</span>
+                    </div>
+                  </div>
+
+                  <button class="saathi-btn-primary saathi-cam-btn" id="vdCamActionBtn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                      <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    <span id="vdCamActionText">Enable camera analysis</span>
+                  </button>
+
+                  <div class="saathi-aux-disclaimer">
+                    Auxiliary signals · processed locally · no audio/images stored
+                  </div>
+                </div>
+              </div>
+
+              <!-- CARD 3: ASSESSMENT ACTION BUTTON -->
+              <div class="saathi-assessment-action-wrap">
+                <button class="saathi-btn-nav" id="vdAssessmentNavBtn">
+                  <span>Continue to a few short questions</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- PAGE 2: ASSESSMENT & HELPLINES VIEW -->
+            <div class="vd-view-page" id="vdPage2">
+              <!-- Top Navigation Bar -->
+              <div class="vd-top-status-row">
+                <div class="vd-status-title-group">
+                  <span class="vd-emerald-live-dot"></span>
+                  <span class="vd-status-title">Assessment</span>
+                </div>
+                <div class="vd-page-header-right">
+                  <span class="vd-page-count-badge">
+                    <span class="vd-page-dot"></span> 2 / 2
+                  </span>
+                  <button class="vd-card-close-btn" id="vdCloseBtn" title="Close Assessment Window">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Follow-up Screening Questions Flow (Screening Protocol) -->
+              <div class="vd-section" id="vdScreeningSection">
+                <div class="vd-section-header">Short Follow-up Screening (Optional)</div>
+                <div id="vdScreeningCard" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px; margin-bottom: 12px;">
+                  <p id="vdScreeningQuestion" style="font-size: 12px; color: #f1f5f9; line-height: 1.4; margin-bottom: 8px;">
+                    1. Over the last 2 weeks, how often have you felt down, overwhelmed, or hopeless?
+                  </p>
+                  <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                    <button class="vd-screening-opt-btn" data-score="0" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: #cbd5e1; border-radius: 6px; padding: 4px 8px; font-size: 11px; cursor: pointer;">Not at all</button>
+                    <button class="vd-screening-opt-btn" data-score="1" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: #cbd5e1; border-radius: 6px; padding: 4px 8px; font-size: 11px; cursor: pointer;">Several days</button>
+                    <button class="vd-screening-opt-btn" data-score="2" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: #cbd5e1; border-radius: 6px; padding: 4px 8px; font-size: 11px; cursor: pointer;">More than half</button>
+                    <button class="vd-screening-opt-btn" data-score="3" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: #cbd5e1; border-radius: 6px; padding: 4px 8px; font-size: 11px; cursor: pointer;">Nearly every day</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Key Indicators Section (NHAA Clinical Triage Protocol) -->
+              <div class="vd-section">
+                <div class="vd-section-header">Key Indicators</div>
+                <div class="vd-indicator-item">
+                  <span class="vd-indicator-label">Suicidal Ideation</span>
+                  <span class="vd-indicator-badge safe" id="vdIndSuicide">Not Detected</span>
+                </div>
+                <div class="vd-indicator-item">
+                  <span class="vd-indicator-label">Threat / Intimidation</span>
+                  <span class="vd-indicator-badge safe" id="vdIndThreat">Not Detected</span>
+                </div>
+                <div class="vd-indicator-item">
+                  <span class="vd-indicator-label">Severe Distress</span>
+                  <span class="vd-indicator-badge safe" id="vdIndDistress">Not Detected</span>
+                </div>
+                <div class="vd-indicator-item">
+                  <span class="vd-indicator-label">Self-harm Language</span>
+                  <span class="vd-indicator-badge safe" id="vdIndSelfHarm">Not Detected</span>
+                </div>
+              </div>
+
+              <!-- Recommended Support Section -->
+              <div class="vd-section">
+                <div class="vd-section-header">Recommended Support</div>
+                <div class="vd-support-list" id="vdSupportList">
+                  <div class="vd-support-bullet">Continue conversation</div>
+                  <div class="vd-support-bullet">Provide emotional support and guidance</div>
+                </div>
+              </div>
+
+              <!-- Emergency Helplines Box (Safety Protocol) -->
+              <div class="vd-helplines-box">
+                <div class="vd-helpline-box-header">ALL-INDIA MENTAL HEALTH HELPLINES (24X7 FREE &amp; CONFIDENTIAL):</div>
+                <div class="vd-helpline-row">
+                  <span class="vd-hl-label">Tele-MANAS (Govt. of India):</span>
+                  <a href="tel:14416" class="vd-hl-num">14416 / 1800–891–4416</a>
+                </div>
+                <div class="vd-helpline-row">
+                  <span class="vd-hl-label">KIRAN (Govt. Helpline):</span>
+                  <a href="tel:18005990019" class="vd-hl-num">1800–599–0019</a>
+                </div>
+                <div class="vd-helpline-row">
+                  <span class="vd-hl-label">Vandrevala Foundation:</span>
+                  <a href="tel:+919999666555" class="vd-hl-num">+91 9999 666 555</a>
+                </div>
+                <div class="vd-helpline-row">
+                  <span class="vd-hl-label">AASRA 24x7:</span>
+                  <a href="tel:+919820466726" class="vd-hl-num">+91 98204 66726</a>
+                </div>
+                <div class="vd-helpline-row">
+                  <span class="vd-hl-label">NIMHANS Helpline:</span>
+                  <a href="tel:08046110007" class="vd-hl-num">080–46110007</a>
+                </div>
+              </div>
+
+              <!-- Footer Row with Back Button -->
+              <div class="vd-footer-row">
+                <button class="vd-back-btn" id="vdBackBtn">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                  <span>Back</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main In-Card Dynamic Center Stage -->
+        <div class="live-voice-center modern-voice-center">
+          <!-- Dynamic Audio Harmonic Quantum Circle Stage -->
+          <div class="voice-wave-ribbon-wrapper" id="voiceWaveRibbonWrapper">
+            <canvas id="liveVoiceWaveCanvas" width="420" height="420"></canvas>
+          </div>
+
+          <!-- Live Dialogue Transcripts Feed (Floating Subtitles) -->
+          <div class="floating-dialogue-lower modern-dialogue-feed">
+            <div class="live-transcript-user" id="liveTranscriptUser"></div>
+            <div class="live-transcript-ai" id="liveTranscriptAi"></div>
+          </div>
+
+          <!-- Realtime State Indicator Pill -->
+          <div class="aura-state-indicator modern-state-pill" id="auraStateIndicator">
+            <span class="stardust-glow"></span>
+            <span class="live-voice-status" id="liveVoiceStatusText">Listening... Speak now</span>
+          </div>
+        </div>
+
+        <!-- Bottom Control Unified Pill Dock -->
+        <div class="live-voice-dock modern-voice-dock">
+          <div class="modern-dock-unified-bar">
+            <!-- Quick Type / Text Input Option -->
+            <div class="dock-type-container" id="dockTypeContainer">
+              <span class="dock-type-prefix-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="4" y1="9" x2="20" y2="9"></line>
+                  <line x1="4" y1="15" x2="20" y2="15"></line>
+                  <line x1="10" y1="3" x2="8" y2="21"></line>
+                  <line x1="16" y1="3" x2="14" y2="21"></line>
+                </svg>
+              </span>
+              <input 
+                type="text" 
+                id="dockTextInput" 
+                class="dock-text-input" 
+                placeholder="Type or speak to SUNO AI..." 
+                autocomplete="off"
+              />
+              <button class="dock-btn-icon dock-send-btn" id="dockSendBtn" title="Send query">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="12" y1="19" x2="12" y2="5"></line>
+                  <polyline points="5 12 12 5 19 12"></polyline>
+                </svg>
+              </button>
+            </div>
+
+            <div class="voice-screen-action-group">
+              <!-- Audio Speaker Mute Toggle -->
+              <button class="voice-side-btn modern-action-btn" id="dockSpeakerBtn" title="Audio Speaker Mute / Unmute">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+              </button>
+
+              <!-- Core Microphone Button -->
+              <div class="voice-mic-halo-container modern-mic-halo">
+                <button class="voice-iridescent-mic-btn modern-mic-btn" id="dockMicToggleBtn" title="Toggle Microphone">
+                  <svg id="dockMicIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- SETTINGS MODAL -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal-dialog aura-glass-dialog">
+      <div class="modal-header">
+        <div class="modal-title-row">
+          <div class="aura-mini-gem"></div>
+          <h3>SUNO AI Configuration</h3>
+        </div>
+        <button class="modal-close-action-btn" id="closeSettingsBtn" title="Close Settings">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">Neural Model Engine</div>
+            <div class="setting-desc">Select primary reasoning pipeline</div>
+          </div>
+          <select id="apiProviderSelect" class="form-select aura-select">
+            <option value="gemini">Google Gemini 1.5 Flash (Ultra-Fast Cloud)</option>
+            <option value="builtin">Ollama (qwen3:4b-instruct Local Offline)</option>
+            <option value="openai">OpenAI (GPT-4o Mini)</option>
+          </select>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">Custom API Key</div>
+            <div class="setting-desc">Optional developer / enterprise token override</div>
+          </div>
+          <input type="password" id="apiKeyInput" class="aura-input" placeholder="AIzaSy... or sk-...">
+        </div>
+
+        <!-- Model Credits & Token Quota Monitor Card -->
+        <div class="credit-monitor-card" id="creditMonitorCard">
+          <div class="credit-monitor-header">
+            <div class="credit-title-group">
+              <span class="credit-icon">⚡</span>
+              <div>
+                <div class="setting-label" style="font-size: 13.5px;">Live Credit & Quota Monitor</div>
+                <div class="setting-desc">Real-time token and context quota consumption</div>
+              </div>
+            </div>
+            <button id="resetCreditsBtn" class="aura-reset-btn" title="Reset usage statistics">
+              <svg class="reset-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+              </svg>
+              <span>Reset</span>
+            </button>
+          </div>
+          <div class="model-credit-list" id="modelCreditList">
+            <!-- Dynamic model credit cards rendered by app.js -->
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">Vocal Tempo</div>
+            <div class="setting-desc">Voice synthesis playback speed</div>
+          </div>
+          <div class="tempo-slider-group">
+            <input type="range" id="speechSpeed" min="0.8" max="1.4" step="0.05" value="1.05">
+            <span id="speedDisplay" class="tempo-badge">1.05x</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="clearChatBtn" class="btn-danger-link">Purge Memory</button>
+        <button id="saveSettingsBtn" class="btn-save aura-btn-primary">Apply Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Local Face API and Multimodal Emotion AI Pipeline -->
+  <script src="vendor/face-api.min.js"></script>
+  <script src="sviEngine.js?v=2.0.0"></script>
+  <script src="audioEmotionEstimator.js?v=1.0.0"></script>
+  <script src="multimodalEmotionEstimator.js?v=1.0.0"></script>
+  <script src="app.js"></script>
+  <script src="voiceAssistant.js?v=1.2.0"></script>
+  <script src="voice-live.js?v=2.0.0"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+# Git and GitHub
+.git/
+.github/
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment variables & local secrets
+.env
+.env.local
+.env.*.local
+
+# Python virtual environment and bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# Operating System & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
