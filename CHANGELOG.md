@@ -244,4 +244,20 @@ npm start
 
 ---
 
+## 7. Home Page & Voice Mode UI Color Unification
+
+### Changes Made:
+1. **Identical Home Page Input Dock**:
+   - Replaced `.aura-input-capsule` styling with the exact translucent frosted glass pill dock used in the Live Voice screen (`max-width: 620px`, `background: rgba(255, 255, 255, 0.14)`, `border: 1px solid rgba(255, 255, 255, 0.24)`, `backdrop-filter: blur(24px)`).
+   - Removed the dark shadowy gradient from `.aura-input-wrapper` (`background: transparent !important`), allowing the lower blue canvas glow to shine through smoothly with zero obstruction.
+2. **Unified Action Buttons**:
+   - Converted `.aura-capsule-voice-btn` into the exact 48px circular frosted glass button matching the voice dock action buttons.
+   - Styled `.aura-capsule-send-btn` with the identical electric-to-sky blue gradient and radiant drop shadow.
+3. **Modal & Component Theme Harmony**:
+   - Replaced all legacy plum and pink accents in settings dialogs, dropdown options, and metric badges with the deep ocean navy & electric azure palette.
+4. **Cache Invalidation**:
+   - Bumped stylesheet query parameter to `style.css?v=1.3.1` across HTML files to guarantee instant updates.
+
+---
+
 *SUNO AI v0.6.7 | Session Notes generated 2026-10-03*
